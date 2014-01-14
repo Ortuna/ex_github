@@ -17,21 +17,13 @@ defmodule ExGithub.Client do
   end
 
   #PRIVATE API
+  
   def _get(client, url) do
-    HTTPotion.get(url, []).body
+    :gen_server.call(client, {:get, url})       
   end
 
   def _request(client, verb, path) do
-    url = api_url(client, path) 
-    case verb do  
-      :GET ->
-        _get(client, url)
-          |> _parse_json
-      :POST ->
-        _get(client, url)
-      _ ->
-        _get(client, url)
-    end
+    :gen_server.call(client, {:request, verb, path})
   end
 
   def _parse_json(string) do
@@ -39,17 +31,33 @@ defmodule ExGithub.Client do
     json
   end
 
+  def handle_call({:request, :GET, path}, _from, config) do
+    url    = api_url(config[:endpoint_url], path) 
+    {:reply, result, _config} = handle_call({:get, url}, _from, config)
+    {:reply, _parse_json(result), config}
+  end
+
+  def handle_call({:get, url}, _from, config) do
+    body = HTTPotion.get(url, []).body
+    {:reply, body, config}
+  end
+
+  def handle_call({:api_url, path}, _from, config) do
+    {:reply, "#{config[:endpoint_url]}/#{path}", config}
+  end
+
   def handle_call(:auth_token, _from, config) do
     {:reply, config[:auth_token], config}
   end
 
   defp start_link(auth_token // nil) do
-    {:ok, pid} = :gen_server.start_link(__MODULE__, [auth_token: auth_token], [])
+    config = [auth_token: auth_token, endpoint_url: @endpoint_url]
+    {:ok, pid} = :gen_server.start_link(__MODULE__, config, [])
     pid
   end 
 
-  defp api_url(_client, path) do
-    "#{@endpoint_url}/#{path}"
+  defp api_url(endpoint_url, path) do
+    "#{endpoint_url}/#{path}"  
   end
 
 end

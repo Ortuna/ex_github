@@ -10,7 +10,7 @@ defmodule UserTest do
 
   test "can return JSON from a request" do
     use_cassette "ortuna" do
-      response = Client._request(Client.create, :GET, "users/ortuna")
+      response = Client.user(Client.create, "ortuna")
       assert response["login"]        == "Ortuna"
       assert response["id"]           == 221008
       assert response["public_repos"] == 57
