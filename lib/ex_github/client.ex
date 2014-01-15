@@ -14,18 +14,28 @@ defmodule ExGithub.Client do
   end
 
   @doc """
+  Takes a Keyword list as the input JSON
+  returns a JSON decoded output from a PATCH request.
+  """
+  def patch(library // @library, path, keyword_list, options // []) do 
+    {:ok, body} = JSON.encode(keyword_list)
+    library.patch(api_url(path), body, headers_from_options(options))
+     |> json_from_response
+  end
+
+  @doc """
   returns a JSON decoded output from a specified URL
   """
-  def request(library // @library, :GET, path, options // []) do 
-    make_get_request(library, path, options)
+  def request(library // @library, verb, path, options // []) do 
+    make_request(verb, library, path, options)
       |> json_from_response
   end
   
   @doc """
   returns the status code returned by the HTTP call
   """
-  def request_status(library // @library, :GET, path, options // []) do
-    make_get_request(library, path, options)
+  def request_status(library // @library, verb, path, options // []) do
+    make_request(verb, library, path, options)
      |> status_from_response
   end
 
@@ -48,20 +58,26 @@ defmodule ExGithub.Client do
      ++ (headers || [])
   end
 
+  @doc """
+  returns the default HTTP library used
+  """
   def http_library do
     @library
   end
+
   #PRIVATE
   defp auth_token_header(nil), do: []
   defp auth_token_header(auth_token) do
     [{"Authorization", "token #{auth_token}"}]
   end
 
-  defp make_get_request(library, path, options) do
+  defp make_request(type, library, path, options) do
+    apply(library, type, [api_url(path), headers_from_options(options)])
+  end
+
+  defp headers_from_options(options) do
     headers = Keyword.get(options, :headers)
     token   = Keyword.get(options, :auth_token)
-
-    api_url(path)
-     |> library.get(request_headers(token, headers))
+    request_headers(token, headers)
   end
 end

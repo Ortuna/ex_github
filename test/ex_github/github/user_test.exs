@@ -1,20 +1,24 @@
 defmodule UserMocks do
   defmodule Ortuna do
-    def request(:GET, "users/ortuna") do
+    def request(:get, "users/ortuna") do
       HashDict.new([ {"login", "Ortuna"}, {"id", 42} ])
     end
 
-    def request(:GET, "users/ortuna/followers") do
+    def request(:get, "users/ortuna/followers") do
       [ HashDict.new([ {"login", "smart_guy"}, {"id", 1} ]),
         HashDict.new([ {"login", "smart_gal"}, {"id", 2} ]) ]
     end
 
-    def request(HTTPotion, :GET, "user", [auth_token: "1234abc"]) do
+    def request(HTTPotion, :get, "user", [auth_token: "1234abc"]) do
       HashDict.new([ {"login", "Elixir"}, {"id", 99} ])
     end
    
-    def request_status(:GET, "users/ortuna/following/elixir"), do: 204
-    def request_status(:GET, "users/ortuna/following/php"),    do: 404
+    def request_status(:get, "users/ortuna/following/elixir"), do: 204
+    def request_status(:get, "users/ortuna/following/php"),    do: 404
+
+    def patch(HTTPotion, "user", [company: "ortuna"], [auth_token: "12345abc"]) do
+      HashDict.new([ {"company", "ortuna"}, {"id", 99} ])
+    end
 
     def http_library, do: HTTPotion
   end
@@ -35,6 +39,11 @@ defmodule UserTest do
     user = User.user(UserMocks.Ortuna, "1234abc")
     assert user["login"] == "Elixir"
     assert user["id"]    == 99 
+  end
+
+  test "can update the current user" do
+    updated_user = User.update(UserMocks.Ortuna, "12345abc", company: "ortuna")
+    assert updated_user["company"] == "ortuna"
   end
 
   test "can fetch followers" do

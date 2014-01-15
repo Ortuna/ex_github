@@ -18,6 +18,14 @@ defmodule ClientMocks do
     end
   end
   
+  defmodule PatchRequest do
+    def patch("https://api.github.com/user", patch_body, headers) do
+      {:ok, values} = JSON.decode(patch_body) 
+      body = "{\"field\": \"#{Dict.get(values, "field")}\"}"
+      HTTPotion.Response.new([status_code: 200, body: body])
+    end
+  end
+
   def default_header do
     [{"User-Agent", "ExGithub"}]
   end
@@ -33,20 +41,26 @@ defmodule ClientTest do
   end
 
   test "can GET JSON from a path" do
-    output = Client.request(ClientMocks.SimpleGETJSON, :GET, "users/Ortuna") 
+    output = Client.request(ClientMocks.SimpleGETJSON, :get, "users/Ortuna") 
     assert output["field"]  == "value"
     assert output["field2"] == "value2"
   end
   
   test "sends the right headers to a request" do
     headers = [{"field", "passed value"}]
-    output = Client.request(ClientMocks.ExplicitParams, :GET, "users/Ortuna", headers: headers) 
+    output = Client.request(ClientMocks.ExplicitParams, :get, "users/Ortuna", headers: headers) 
     assert output["field"]  == "passed value"
   end
   
   test "sends the right auth_toke to a request" do
-    output = Client.request(ClientMocks.ExplicitParams, :GET, "auth_token", auth_token: "1234abc") 
+    output = Client.request(ClientMocks.ExplicitParams, :get, "auth_token", auth_token: "1234abc") 
     assert output["auth_token"]  == "token 1234abc"
+  end
+
+  test "sends a patch request" do
+    values = [field: "passed value"]
+    output = Client.patch(ClientMocks.PatchRequest, "user", values, auth_token: "1234abc") 
+    assert output["field"]  == "passed value"
   end
 
   test "#json_from response can parse JSON from a HTTPotion.Response" do
