@@ -50,7 +50,7 @@ defmodule UserTest do
     followers = User.followers(UserMocks.Ortuna, "ortuna")
     assert Enum.count(followers) == 2
 
-    first = Enum.first(followers) 
+    first = Enum.at(followers, 0) 
     assert first["login"] == "smart_guy"
     assert first["id"]    == 1
   end
