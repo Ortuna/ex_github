@@ -1,6 +1,6 @@
 defmodule ExGithub.Client do
-  use GenServer.Behaviour
-  use ExGithub.User
+  use    GenServer.Behaviour
+  import ExGithub.User
 
   @endpoint_url "https://api.github.com"
 
