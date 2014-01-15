@@ -1,52 +1,42 @@
+defmodule ClientMocks do
+  defmodule SimpleGETJSON do
+    def get(_url, _headers) do
+      body = "{\"field\": \"value\", \"field2\": \"value2\"}"
+      HTTPotion.Response.new([status_code: 200, body: body])
+    end
+  end
+end
+
 defmodule ClientTest do
-  use    ExUnit.Case, async: true
-
-  alias  ExGithub.Client
-  import ExVCR.Mock
-
-  setup_all do
-    ExVCR.Config.cassette_library_dir("test/fixtures/http")
-    :ok
+  use     ExUnit.Case, async: true
+  alias   ExGithub.Client
+  doctest Client
+  
+  def create_response(status_code // 200, body) do 
+    HTTPotion.Response.new([status_code: status_code, body: body])
   end
 
-  test "Can create a new client" do
-    assert is_pid(Client.create) == true
+  test "can GET JSON from a path" do
+    output = Client.request(ClientMocks.SimpleGETJSON, :GET, "users/Ortuna") 
+    assert output["field"]  == "value"
+    assert output["field2"] == "value2"
   end
 
-  test "can create a new client with an auth_token" do
-    assert is_pid(Client.create(auth_token: "some_token")) == true
+  test "can parse JSON from a string" do
+    response = create_response("{\"field\": \"value\", \"field2\": \"value2\"}") 
+    output   = Client.json_from_response(response)
+    assert output["field"]  == "value"
+    assert output["field2"] == "value2"
   end
+  
+  test "appends user-agent to headers" do
+    headers  = Client.request_headers
+    expected = [{"User-Agent", "ExGithub"}]
+    assert headers == expected
 
-  test "knows it's auth_token" do
-    client = Client.create(auth_token: "some_token")
-    assert Client.auth_token(client) == "some_token"
-  end
-
-  test "can make a remote request" do
-    use_cassette "plain" do
-      response = Client._get(Client.create, "https://api.github.com")
-      assert response == "expected body"
-    end
-  end
-
-  test "can return JSON from a request" do
-    use_cassette "plain" do
-      response = Client._request(Client.create, :GET, "simple_object")
-      assert response["field"] == 1234
-    end
-  end
-
-  test "can parse JSON" do
-    json = """
-    {
-      "field":  "value",
-      "field2": "value2"
-    }
-    """
-
-    response = Client._parse_json(json)
-    assert response["field"]  == "value"
-    assert response["field2"] == "value2"
+    headers  = Client.request_headers([{"X-YZ", "some_value"}])
+    expected = [{"User-Agent", "ExGithub"}, {"X-YZ", "some_value"}]
+    assert headers == expected
   end
 
 end

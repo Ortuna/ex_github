@@ -1,63 +1,35 @@
 defmodule ExGithub.Client do
   use    GenServer.Behaviour
-  import ExGithub.User
-
   @endpoint_url "https://api.github.com"
 
-  def create do
-    start_link
-  end 
+  @doc """
+  returns the full URL depending on path
 
-  def create([{:auth_token, auth_token}]) do
-    start_link(auth_token)
+  ## Examples
+    iex> ExGithub.Client.api_url("users/ortuna")
+    "https://api.github.com/users/ortuna"
+  """
+  def api_url(path) do
+    "#{@endpoint_url}/#{path}"
   end
 
-  def auth_token(client) do
-    :gen_server.call(client, :auth_token)
+  @doc """
+  returns a JSON decoded output from a specified URL
+  """
+  def request(library // HTTPotion, :GET, path, headers // []) do 
+    api_url(path)
+      |> library.get(request_headers(headers))
+      |> json_from_response
   end
-
-  #PRIVATE API
   
-  def _get(client, url) do
-    :gen_server.call(client, {:get, url})       
+  def json_from_response(HTTPotion.Response[body: body]) do
+    {:ok, hash} = JSON.decode(body)
+    hash
   end
 
-  def _request(client, verb, path) do
-    :gen_server.call(client, {:request, verb, path})
+  def request_headers(headers // []) do
+    [{"User-Agent", "ExGithub"}] ++ headers 
   end
 
-  def _parse_json(string) do
-    {:ok, json} = JSON.decode(string)
-    json
-  end
-
-  def handle_call({:request, :GET, path}, _from, config) do
-    url    = api_url(config[:endpoint_url], path) 
-    {:reply, result, _config} = handle_call({:get, url}, _from, config)
-    {:reply, _parse_json(result), config}
-  end
-
-  def handle_call({:get, url}, _from, config) do
-    body = HTTPotion.get(url, []).body
-    {:reply, body, config}
-  end
-
-  def handle_call({:api_url, path}, _from, config) do
-    {:reply, "#{config[:endpoint_url]}/#{path}", config}
-  end
-
-  def handle_call(:auth_token, _from, config) do
-    {:reply, config[:auth_token], config}
-  end
-
-  defp start_link(auth_token // nil) do
-    config = [auth_token: auth_token, endpoint_url: @endpoint_url]
-    {:ok, pid} = :gen_server.start_link(__MODULE__, config, [])
-    pid
-  end 
-
-  defp api_url(endpoint_url, path) do
-    "#{endpoint_url}/#{path}"  
-  end
-
+  #PRIVATE
 end
