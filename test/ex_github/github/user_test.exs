@@ -8,10 +8,15 @@ defmodule UserMocks do
       [ HashDict.new([ {"login", "smart_guy"}, {"id", 1} ]),
         HashDict.new([ {"login", "smart_gal"}, {"id", 2} ]) ]
     end
-    
+
+    def request(HTTPotion, :GET, "user", [auth_token: "1234abc"]) do
+      HashDict.new([ {"login", "Elixir"}, {"id", 99} ])
+    end
+   
     def request_status(:GET, "users/ortuna/following/elixir"), do: 204
     def request_status(:GET, "users/ortuna/following/php"),    do: 404
 
+    def http_library, do: HTTPotion
   end
 end
 
@@ -24,6 +29,12 @@ defmodule UserTest do
     user = User.fetch(UserMocks.Ortuna, "ortuna")
     assert user["login"] == "Ortuna"
     assert user["id"]    == 42
+  end
+  
+  test "can fetch the current user" do
+    user = User.user(UserMocks.Ortuna, "1234abc")
+    assert user["login"] == "Elixir"
+    assert user["id"]    == 99 
   end
 
   test "can fetch followers" do

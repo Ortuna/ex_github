@@ -9,6 +9,14 @@ defmodule ExGithub.User do
   end
 
   @doc """
+  returns a users details
+  """
+  def user(client // @client, auth_token) do
+    client.request(client.http_library, :GET, "user", auth_token: auth_token)
+  end
+
+
+  @doc """
   returns a list of followers for a particular user
   """
   def followers(client // @client, user_name) do

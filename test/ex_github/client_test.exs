@@ -17,6 +17,10 @@ defmodule ClientMocks do
       HTTPotion.Response.new([status_code: 200, body: body])
     end
   end
+  
+  def default_header do
+    [{"User-Agent", "ExGithub"}]
+  end
 end
 
 defmodule ClientTest do
@@ -54,11 +58,10 @@ defmodule ClientTest do
   
   test "#request_headers appends user-agent to headers" do
     headers  = Client.request_headers
-    expected = [{"User-Agent", "ExGithub"}]
-    assert headers == expected
+    assert headers == ClientMocks.default_header
 
     headers  = Client.request_headers(nil, [{"X-YZ", "some_value"}])
-    expected = [{"User-Agent", "ExGithub"}, {"X-YZ", "some_value"}]
+    expected = ClientMocks.default_header ++ [{"X-YZ", "some_value"}]
     assert headers == expected
   end
 
@@ -67,7 +70,7 @@ defmodule ClientTest do
     assert Dict.get(headers, "Authorization") == "token 123446asdbc0000"
 
     headers = Client.request_headers
-    assert [{"User-Agent", "ExGithub"}] == headers
+    assert headers == ClientMocks.default_header
   end
 
   test "#status_from_response can return the status from a request" do
