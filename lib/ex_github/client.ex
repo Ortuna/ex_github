@@ -24,6 +24,26 @@ defmodule ExGithub.Client do
   end
 
   @doc """
+  returns a JSON decoded output from a PUT request.
+  """
+  def put(library // @library, path, options // []) do 
+    _empty_body_status_request(library, :put, path, options)
+  end
+
+  @doc """
+  returns a JSON decoded output from a DELETE request.
+  """
+  def delete(library // @library, path, options // []) do 
+    request_status(library, :delete, path, options)
+  end
+
+  defp _empty_body_status_request(library, verb, path, options) do
+    args = [api_url(path), "", headers_from_options(options)]
+    apply(library, verb, args)
+     |> status_from_response
+  end
+
+  @doc """
   returns a JSON decoded output from a specified URL
   """
   def request(library // @library, verb, path, options // []) do 
@@ -71,8 +91,8 @@ defmodule ExGithub.Client do
     [{"Authorization", "token #{auth_token}"}]
   end
 
-  defp make_request(type, library, path, options) do
-    apply(library, type, [api_url(path), headers_from_options(options)])
+  defp make_request(verb, library, path, options) do
+    apply(library, verb, [api_url(path), headers_from_options(options)])
   end
 
   defp headers_from_options(options) do

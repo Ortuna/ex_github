@@ -19,7 +19,7 @@ defmodule ClientMocks do
   end
   
   defmodule PatchRequest do
-    def patch("https://api.github.com/user", patch_body, headers) do
+    def patch("https://api.github.com/user", patch_body, _headers) do
       {:ok, values} = JSON.decode(patch_body) 
       body = "{\"field\": \"#{Dict.get(values, "field")}\"}"
       HTTPotion.Response.new([status_code: 200, body: body])
