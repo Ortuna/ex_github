@@ -24,14 +24,14 @@ defmodule ExGithub.Client do
   end
 
   @doc """
-  returns a JSON decoded output from a PUT request.
+  returns status code from a PUT request.
   """
   def put(library // @library, path, options // []) do 
     _empty_body_status_request(library, :put, path, options)
   end
 
   @doc """
-  returns a JSON decoded output from a DELETE request.
+  returns status code from a DELETE request.
   """
   def delete(library // @library, path, options // []) do 
     request_status(library, :delete, path, options)
