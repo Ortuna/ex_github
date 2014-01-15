@@ -5,6 +5,18 @@ defmodule ClientMocks do
       HTTPotion.Response.new([status_code: 200, body: body])
     end
   end
+
+  defmodule ExplicitParams do
+    def get("https://api.github.com/users/Ortuna", headers) do
+      body = "{\"field\": \"#{Dict.get(headers, "field")}\"}"
+      HTTPotion.Response.new([status_code: 200, body: body])
+    end
+
+    def get("https://api.github.com/auth_token", headers) do
+      body = "{\"auth_token\": \"#{Dict.get(headers, "Authorization")}\"}"
+      HTTPotion.Response.new([status_code: 200, body: body])
+    end
+  end
 end
 
 defmodule ClientTest do
@@ -21,6 +33,17 @@ defmodule ClientTest do
     assert output["field"]  == "value"
     assert output["field2"] == "value2"
   end
+  
+  test "sends the right headers to a request" do
+    headers = [{"field", "passed value"}]
+    output = Client.request(ClientMocks.ExplicitParams, :GET, "users/Ortuna", headers: headers) 
+    assert output["field"]  == "passed value"
+  end
+  
+  test "sends the right auth_toke to a request" do
+    output = Client.request(ClientMocks.ExplicitParams, :GET, "auth_token", auth_token: "1234abc") 
+    assert output["auth_token"]  == "token 1234abc"
+  end
 
   test "#json_from response can parse JSON from a HTTPotion.Response" do
     response = create_response("{\"field\": \"value\", \"field2\": \"value2\"}") 
@@ -34,9 +57,17 @@ defmodule ClientTest do
     expected = [{"User-Agent", "ExGithub"}]
     assert headers == expected
 
-    headers  = Client.request_headers([{"X-YZ", "some_value"}])
+    headers  = Client.request_headers(nil, [{"X-YZ", "some_value"}])
     expected = [{"User-Agent", "ExGithub"}, {"X-YZ", "some_value"}]
     assert headers == expected
+  end
+
+  test "#request_headers appends auth_token to returned headers" do
+    headers = Client.request_headers("123446asdbc0000")
+    assert Dict.get(headers, "Authorization") == "token 123446asdbc0000"
+
+    headers = Client.request_headers
+    assert [{"User-Agent", "ExGithub"}] == headers
   end
 
   test "#status_from_response can return the status from a request" do

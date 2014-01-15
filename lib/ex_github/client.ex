@@ -16,18 +16,16 @@ defmodule ExGithub.Client do
   @doc """
   returns a JSON decoded output from a specified URL
   """
-  def request(library // HTTPotion, :GET, path, headers // []) do 
-    api_url(path)
-      |> library.get(request_headers(headers))
+  def request(library // HTTPotion, :GET, path, options // []) do 
+    make_get_request(library, path, options)
       |> json_from_response
   end
   
   @doc """
   returns the status code returned by the HTTP call
   """
-  def request_status(library // HTTPotion, :GET, path, headers // []) do
-    api_url(path)
-     |> library.get(request_headers(headers))
+  def request_status(library // HTTPotion, :GET, path, options // []) do
+    make_get_request(library, path, options)
      |> status_from_response
   end
 
@@ -44,9 +42,22 @@ defmodule ExGithub.Client do
   """
   def status_from_response(HTTPotion.Response[status_code: code]), do: code
 
-  def request_headers(headers // []) do
-    [{"User-Agent", "ExGithub"}] ++ headers 
+  def request_headers(auth_token // nil, headers // []) do
+    [{"User-Agent", "ExGithub"}] 
+     ++ auth_token_header(auth_token) 
+     ++ headers 
   end
 
   #PRIVATE
+  defp auth_token_header(nil), do: []
+  defp auth_token_header(auth_token) do
+    [{"Authorization", "token #{auth_token}"}]
+  end
+
+  defp make_get_request(library, path, options) do
+    headers = Keyword.get(options, :headers)
+    token   = Keyword.get(options, :auth_token) || []
+    api_url(path)
+     |> library.get(request_headers(token, headers))
+  end
 end
