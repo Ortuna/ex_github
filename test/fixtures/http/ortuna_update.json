@@ -1,0 +1,18 @@
+[
+  {
+    "request": {
+      "url": "https://api.github.com/user",
+      "headers": {
+        "User-Agent": "ExGithub",
+        "Authorization": "token tokenabc1234"
+      },
+      "method": "patch",
+      "body": "{\"company\":\"test\"}",
+      "options": []
+    },
+    "response": {
+      "status_code": 200,
+      "body": "{\"company\": \"test\"}"
+    }
+  }
+]

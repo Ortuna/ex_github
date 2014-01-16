@@ -1,0 +1,31 @@
+[  {
+    "request": {
+      "url": "https://api.github.com/user/following/elixir",
+      "headers": {
+        "User-Agent": "ExGithub"
+      },
+      "method": "put",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 204,
+      "body": ""
+    }
+  },
+  {
+    "request": {
+      "url": "https://api.github.com/user/following/php",
+      "headers": {
+        "User-Agent": "ExGithub"
+      },
+      "method": "delete",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 204,
+      "body": ""
+    }
+  }
+]

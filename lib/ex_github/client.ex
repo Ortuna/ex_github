@@ -27,19 +27,18 @@ defmodule ExGithub.Client do
   returns status code from a PUT request.
   """
   def put(library // @library, path, options // []) do 
-    _empty_body_status_request(library, :put, path, options)
+    _empty_body_status_request(library, :put, path, "", options)
   end
 
   @doc """
   returns status code from a DELETE request.
   """
   def delete(library // @library, path, options // []) do 
-    request_status(library, :delete, path, options)
+    _empty_body_status_request(library, :delete, path, "", options)
   end
 
-  defp _empty_body_status_request(library, verb, path, options) do
-    args = [api_url(path), "", headers_from_options(options)]
-    apply(library, verb, args)
+  defp _empty_body_status_request(library, verb, path, body, options) do
+    library.request(verb, api_url(path), body, headers_from_options(options))
      |> status_from_response
   end
 

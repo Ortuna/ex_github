@@ -1,0 +1,18 @@
+[
+  {
+    "request": {
+      "url": "https://api.github.com/user/emails",
+      "headers": {
+        "User-Agent": "ExGithub",
+        "Authorization": "token tokenabc12345"
+      },
+      "method": "get",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 200,
+      "body": "[\"ortuna@gmail.com\",\"ortuna@gmail.com\"]"
+    }
+  }
+]
