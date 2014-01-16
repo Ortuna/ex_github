@@ -12,7 +12,7 @@
     },
     "response": {
       "status_code": 200,
-      "body": "{\"company\": \"test\"}"
+      "body": "{\"company\": \"test\", \"login\": \"Ortuna\", \"id\": 221008, \"public_repos\": 57}"
     }
   }
 ]
