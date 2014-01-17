@@ -1,9 +1,9 @@
 [ "exactor": {:git, "git://github.com/sasa1977/exactor.git", "ee207af78849fc277b5d33edfbb493e6f369320a", []},
   "exprintf": {:git, "git://github.com/parroty/exprintf.git", "153697ed99bc2050abbb3b17a1efc413025113f2", []},
-  "exvcr": {:git, "git://github.com/parroty/exvcr.git", "0b85e9d94ee2d7ac7f96116fd8d52b568b2b7a06", []},
-  "httpotion": {:git, "git://github.com/myfreeweb/httpotion.git", "c68cfb5ed6a5f5acb52e24214880d4da268ff107", [{:branch, "master"}]},
+  "exvcr": {:git, "git://github.com/parroty/exvcr.git", "3ddcec8146a57c6891dc4000586215da82432276", []},
+  "httpotion": {:git, "git://github.com/Ortuna/httpotion.git", "536ae263d63e80353fbc84d044e98ff3c70133d8", [branch: "dep-fixes"]},
   "ibrowse": {:git, "git://github.com/cmullaparthi/ibrowse.git", "d824491d37449763ac44398f8494731e0c1418c1", []},
   "jsex": {:git, "git://github.com/talentdeficit/jsex.git", "1e89a76f770e14bbbd1b5bebfc05312a984f21a4", []},
-  "json": {:git, "git://github.com/cblage/elixir-json.git", "a16a82805771b99fab5b567eb3678bca1dce424e", [{:branch, "master"}]},
-  "jsx": {:git, "git://github.com/talentdeficit/jsx.git", "e50af6e109cb03bd26acf715cbc77de746507d1d", [{:tag, "v1.4.3"}]},
+  "json": {:git, "git://github.com/cblage/elixir-json.git", "a16a82805771b99fab5b567eb3678bca1dce424e", []},
+  "jsx": {:git, "git://github.com/talentdeficit/jsx.git", "e50af6e109cb03bd26acf715cbc77de746507d1d", [tag: "v1.4.3"]},
   "meck": {:git, "git://github.com/eproxus/meck.git", "8a9007c2ec664278f714c0805e4f128af54c3af8", []} ]

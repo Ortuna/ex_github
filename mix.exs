@@ -20,8 +20,9 @@ defmodule ExGithub.Mixfile do
   end
 
   defp deps(:prod) do
-    [ {:json,      github: "cblage/elixir-json",  branch: "master" },
-      {:httpotion, github: "myfreeweb/httpotion", branch: "master" } ]
+    [ {:json,      github: "cblage/elixir-json"},
+      {:httpotion, github: "Ortuna/httpotion", branch: "dep-fixes"} ]
+      #{:httpotion, github: "myfreeweb/httpotion"} ]
   end
   
   defp deps(_env) do
