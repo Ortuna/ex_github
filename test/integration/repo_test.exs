@@ -10,7 +10,7 @@ defmodule ExGithubRepoTest do
 
   test "can fetch a users repos" do
     use_cassette "user_repos" do
-      repos = Repo.fetch_repos("ortuna")
+      repos = Repo.fetch_all("ortuna")
       assert Enum.count(repos) == 30
     end
   end
@@ -63,22 +63,6 @@ defmodule ExGithubRepoTest do
       assert new_repo["name"] == "bana_new"
     end
   end 
-
-  test" can get a list of branches" do
-    use_cassette "branches" do
-      branches = Repo.branches("elixir-lang", "elixir")
-      first    = Enum.at(branches, 0)
-      assert Enum.count(branches) == 2
-      assert first["name"] == "master"
-    end
-  end
-
-  test "can get a branch" do
-    use_cassette "branch" do
-      branch = Repo.branch("elixir-lang", "elixir", "stable")
-      assert branch["name"] == "stable"
-    end
-  end
 
   test "can get a list of forks" do
     use_cassette "forks" do

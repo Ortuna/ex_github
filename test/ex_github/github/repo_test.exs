@@ -28,19 +28,9 @@ defmodule Mock.Repo do
       HashDict.new([{"name", "v3.0"}]) ] 
   end
 
-  def request(:get, "repos/some_owner/some_repo/branches") do 
-    [ HashDict.new([{"name", "master"}]), 
-      HashDict.new([{"name", "dev"}]), 
-      HashDict.new([{"name", "other"}]) ] 
-  end
-
   def request(:get, "repos/some_owner/some_repo/forks") do 
     [1, 2, 3]
   end
-
-  def request(:get, "repos/some_owner/some_repo/branches/dev") do
-    HashDict.new([{"name", "dev"}])
-  end 
 
   def request(:get, "repos/some_user/some_repo"), do: Enum.at(repo_list, 0)
   def request(HTTPotion, :get, "user/repos", [auth_token: "auth_token"]), do: repo_list
@@ -64,7 +54,7 @@ defmodule RepoTest do
   end
 
   test "can fetch a users repositories" do
-    repos = Repo.fetch_repos(Mock.Repo, "some_user") 
+    repos = Repo.fetch_all(Mock.Repo, "some_user") 
     validate_repo_list(repos)
   end
 
@@ -117,20 +107,6 @@ defmodule RepoTest do
 
     assert Enum.count(tags) == 3
     assert first["name"] == "v1.0"
-  end
-
-  test "can get a list branches" do
-    branches = Repo.branches(Mock.Repo, "some_owner", "some_repo")
-    first    = Enum.at(branches, 0)
-
-
-    assert Enum.count(branches) == 3
-    assert first["name"] == "master"
-  end
-
-  test "can get a branch" do
-    branch = Repo.branch(Mock.Repo, "some_owner", "some_repo", "dev")
-    assert branch["name"] == "dev"
   end
 
   test "can get a list of forks" do

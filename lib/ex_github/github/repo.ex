@@ -4,7 +4,7 @@ defmodule ExGithub.Repo do
   @doc """ 
   returns a list of repos for the given user
   """
-  def fetch_repos(client // @client, user_name) do
+  def fetch_all(client // @client, user_name) do
     client.request(:get, "users/#{user_name}/repos")
   end
 
@@ -65,26 +65,10 @@ defmodule ExGithub.Repo do
   end
 
   @doc """
-  returns a list of branches for a repo
-  """
-  def branches(client // @client, owner, repo) do
-    client.request(:get, "repos/#{owner}/#{repo}/branches")
-  end
-
-  @doc """
-  returns a branch for a repo
-  """
-  def branch(client // @client, owner, repo, branch) do
-    client.request(:get, "repos/#{owner}/#{repo}/branches/#{branch}")
-  end
-
-  @doc """
   returns a list of forks
   """
   def forks(client // @client, owner, repo) do
     client.request(:get, "repos/#{owner}/#{repo}/forks")
   end
-
-
 end
 
