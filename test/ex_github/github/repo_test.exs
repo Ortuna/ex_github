@@ -42,11 +42,11 @@ defmodule Mock.Repo do
     HashDict.new([{"name", "dev"}])
   end 
 
-  def request(:get, "repos/some_user/some_repo"), do: Enum.first(repo_list)
+  def request(:get, "repos/some_user/some_repo"), do: Enum.at(repo_list, 0)
   def request(HTTPotion, :get, "user/repos", [auth_token: "auth_token"]), do: repo_list
 
   def patch(HTTPotion, "repos/some_user/some_repo", [name: "some_repo", hash_issues: false], [auth_token: "auth_token"]) do
-    Enum.first(repo_list)
+    Enum.at(repo_list, 0)
   end
 
   def http_library, do: HTTPotion 
