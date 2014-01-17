@@ -1,0 +1,38 @@
+[
+  {
+    "request": {
+      "url": "https://api.github.com/repos/elixir-lang/elixir/languages",
+      "headers": {
+        "User-Agent": "ExGithub"
+      },
+      "method": "get",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 200,
+      "headers": {
+        "Server": "GitHub.com",
+        "Date": "Fri, 17 Jan 2014 03:28:50 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Status": "200 OK",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "51",
+        "X-RateLimit-Reset": "1389930302",
+        "Cache-Control": "public, max-age=60, s-maxage=60",
+        "Last-Modified": "Fri, 17 Jan 2014 00:26:45 GMT",
+        "ETag": "\"1f3d68dc6403a8c67c25b158262d1633\"",
+        "Vary": "Accept",
+        "X-GitHub-Media-Type": "github.beta; format=json",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Length": "47",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+        "Access-Control-Allow-Origin": "*",
+        "X-GitHub-Request-Id": "AD4FA0D7:4A28:351556C:52D8A371",
+        "Vary": "Accept-Encoding"
+      },
+      "body": "{\"Shell\":9749,\"Elixir\":1685996,\"Erlang\":272969}"
+    }
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "request": {
+      "url": "https://api.github.com/repos/elixir-lang/elixir/branches/stable",
+      "headers": {
+        "User-Agent": "ExGithub"
+      },
+      "method": "get",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 200,
+      "headers": {
+        "Server": "GitHub.com",
+        "Date": "Fri, 17 Jan 2014 04:01:40 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Status": "200 OK",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "41",
+        "X-RateLimit-Reset": "1389933946",
+        "Cache-Control": "public, max-age=60, s-maxage=60",
+        "ETag": "\"856a51ae417d653e40ad9e3f2086bb2d\"",
+        "Vary": "Accept",
+        "X-GitHub-Media-Type": "github.beta; format=json",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Length": "3385",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+        "Access-Control-Allow-Origin": "*",
+        "X-GitHub-Request-Id": "AD4FA0D7:0369:594ED6F:52D8AB24",
+        "Vary": "Accept-Encoding"
+      },
+      "body": "{\"name\":\"stable\",\"commit\":{\"sha\":\"ddc6b48a4988ea596456eb7b2129269b33d0a99f\",\"commit\":{\"author\":{\"name\":\"José Valim\",\"email\":\"jose.valim@plataformatec.com.br\",\"date\":\"2014-01-15T15:01:57Z\"},\"committer\":{\"name\":\"José Valim\",\"email\":\"jose.valim@plataformatec.com.br\",\"date\":\"2014-01-15T15:01:57Z\"},\"message\":\"Release v0.12.2\",\"tree\":{\"sha\":\"40acc1f15621ce451c110440895605457b438d51\",\"url\":\"https://api.github.com/repos/elixir-lang/elixir/git/trees/40acc1f15621ce451c110440895605457b438d51\"},\"url\":\"https://api.github.com/repos/elixir-lang/elixir/git/commits/ddc6b48a4988ea596456eb7b2129269b33d0a99f\",\"comment_count\":0},\"url\":\"https://api.github.com/repos/elixir-lang/elixir/commits/ddc6b48a4988ea596456eb7b2129269b33d0a99f\",\"html_url\":\"https://github.com/elixir-lang/elixir/commit/ddc6b48a4988ea596456eb7b2129269b33d0a99f\",\"comments_url\":\"https://api.github.com/repos/elixir-lang/elixir/commits/ddc6b48a4988ea596456eb7b2129269b33d0a99f/comments\",\"author\":{\"login\":\"josevalim\",\"id\":9582,\"avatar_url\":\"https://gravatar.com/avatar/e837f6b7fd146ab16ed3d663476c063e?d=https%3A%2F%2Fidenticons.github.com%2Fe20b21ae6508f22fc189c60a0880d0b8.png&r=x\",\"gravatar_id\":\"e837f6b7fd146ab16ed3d663476c063e\",\"url\":\"https://api.github.com/users/josevalim\",\"html_url\":\"https://github.com/josevalim\",\"followers_url\":\"https://api.github.com/users/josevalim/followers\",\"following_url\":\"https://api.github.com/users/josevalim/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/josevalim/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/josevalim/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/josevalim/subscriptions\",\"organizations_url\":\"https://api.github.com/users/josevalim/orgs\",\"repos_url\":\"https://api.github.com/users/josevalim/repos\",\"events_url\":\"https://api.github.com/users/josevalim/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/josevalim/received_events\",\"type\":\"User\",\"site_admin\":false},\"committer\":{\"login\":\"josevalim\",\"id\":9582,\"avatar_url\":\"https://gravatar.com/avatar/e837f6b7fd146ab16ed3d663476c063e?d=https%3A%2F%2Fidenticons.github.com%2Fe20b21ae6508f22fc189c60a0880d0b8.png&r=x\",\"gravatar_id\":\"e837f6b7fd146ab16ed3d663476c063e\",\"url\":\"https://api.github.com/users/josevalim\",\"html_url\":\"https://github.com/josevalim\",\"followers_url\":\"https://api.github.com/users/josevalim/followers\",\"following_url\":\"https://api.github.com/users/josevalim/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/josevalim/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/josevalim/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/josevalim/subscriptions\",\"organizations_url\":\"https://api.github.com/users/josevalim/orgs\",\"repos_url\":\"https://api.github.com/users/josevalim/repos\",\"events_url\":\"https://api.github.com/users/josevalim/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/josevalim/received_events\",\"type\":\"User\",\"site_admin\":false},\"parents\":[{\"sha\":\"5a2e838def3f5470abff5cbbbc82b22f3e48411e\",\"url\":\"https://api.github.com/repos/elixir-lang/elixir/commits/5a2e838def3f5470abff5cbbbc82b22f3e48411e\",\"html_url\":\"https://github.com/elixir-lang/elixir/commit/5a2e838def3f5470abff5cbbbc82b22f3e48411e\"}]},\"_links\":{\"self\":\"https://api.github.com/repos/elixir-lang/elixir/branches/stable\",\"html\":\"https://github.com/elixir-lang/elixir/tree/stable\"}}"
+    }
+  }
+]
