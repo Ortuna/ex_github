@@ -1,0 +1,37 @@
+[
+  {
+    "request": {
+      "url": "https://api.github.com/repos/elixir-lang/elixir/collaborators",
+      "headers": {
+        "User-Agent": "ExGithub"
+      },
+      "method": "get",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 200,
+      "headers": {
+        "Server": "GitHub.com",
+        "Date": "Fri, 17 Jan 2014 18:20:37 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Status": "200 OK",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "45",
+        "X-RateLimit-Reset": "1389984535",
+        "Cache-Control": "public, max-age=60, s-maxage=60",
+        "ETag": "\"6db1084c64b4f7af00110e8eb3e4d2a9\"",
+        "Vary": "Accept",
+        "X-GitHub-Media-Type": "github.beta; format=json",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Length": "4929",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+        "Access-Control-Allow-Origin": "*",
+        "X-GitHub-Request-Id": "AD4FA0D7:0365:3B4464A:52D97475",
+        "Vary": "Accept-Encoding"
+      },
+      "body": "[{\"login\":\"alco\",\"id\":207748,\"avatar_url\":\"https://gravatar.com/avatar/96f31e49f44b5ba166999c4576c43c41?d=https%3A%2F%2Fidenticons.github.com%2F2c06a5d7a5ec000ece1356c2e7b59d6f.png&r=x\",\"gravatar_id\":\"96f31e49f44b5ba166999c4576c43c41\",\"url\":\"https://api.github.com/users/alco\",\"html_url\":\"https://github.com/alco\",\"followers_url\":\"https://api.github.com/users/alco/followers\",\"following_url\":\"https://api.github.com/users/alco/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/alco/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/alco/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/alco/subscriptions\",\"organizations_url\":\"https://api.github.com/users/alco/orgs\",\"repos_url\":\"https://api.github.com/users/alco/repos\",\"events_url\":\"https://api.github.com/users/alco/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/alco/received_events\",\"type\":\"User\",\"site_admin\":false},{\"login\":\"ericmj\",\"id\":316890,\"avatar_url\":\"https://gravatar.com/avatar/6aa1f94af85d7e7dc9b80e9ba3d6e947?d=https%3A%2F%2Fidenticons.github.com%2Fd167a4b498365b045f396113a94360b4.png&r=x\",\"gravatar_id\":\"6aa1f94af85d7e7dc9b80e9ba3d6e947\",\"url\":\"https://api.github.com/users/ericmj\",\"html_url\":\"https://github.com/ericmj\",\"followers_url\":\"https://api.github.com/users/ericmj/followers\",\"following_url\":\"https://api.github.com/users/ericmj/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/ericmj/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/ericmj/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/ericmj/subscriptions\",\"organizations_url\":\"https://api.github.com/users/ericmj/orgs\",\"repos_url\":\"https://api.github.com/users/ericmj/repos\",\"events_url\":\"https://api.github.com/users/ericmj/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/ericmj/received_events\",\"type\":\"User\",\"site_admin\":false},{\"login\":\"josevalim\",\"id\":9582,\"avatar_url\":\"https://gravatar.com/avatar/e837f6b7fd146ab16ed3d663476c063e?d=https%3A%2F%2Fidenticons.github.com%2Fe20b21ae6508f22fc189c60a0880d0b8.png&r=x\",\"gravatar_id\":\"e837f6b7fd146ab16ed3d663476c063e\",\"url\":\"https://api.github.com/users/josevalim\",\"html_url\":\"https://github.com/josevalim\",\"followers_url\":\"https://api.github.com/users/josevalim/followers\",\"following_url\":\"https://api.github.com/users/josevalim/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/josevalim/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/josevalim/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/josevalim/subscriptions\",\"organizations_url\":\"https://api.github.com/users/josevalim/orgs\",\"repos_url\":\"https://api.github.com/users/josevalim/repos\",\"events_url\":\"https://api.github.com/users/josevalim/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/josevalim/received_events\",\"type\":\"User\",\"site_admin\":false},{\"login\":\"rafaelfranca\",\"id\":47848,\"avatar_url\":\"https://gravatar.com/avatar/0525b332aafb83307b32d9747a93de03?d=https%3A%2F%2Fidenticons.github.com%2F2c7b84fa30f0cea96a90729afe2970a0.png&r=x\",\"gravatar_id\":\"0525b332aafb83307b32d9747a93de03\",\"url\":\"https://api.github.com/users/rafaelfranca\",\"html_url\":\"https://github.com/rafaelfranca\",\"followers_url\":\"https://api.github.com/users/rafaelfranca/followers\",\"following_url\":\"https://api.github.com/users/rafaelfranca/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/rafaelfranca/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/rafaelfranca/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/rafaelfranca/subscriptions\",\"organizations_url\":\"https://api.github.com/users/rafaelfranca/orgs\",\"repos_url\":\"https://api.github.com/users/rafaelfranca/repos\",\"events_url\":\"https://api.github.com/users/rafaelfranca/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/rafaelfranca/received_events\",\"type\":\"User\",\"site_admin\":false},{\"login\":\"yrashk\",\"id\":452,\"avatar_url\":\"https://gravatar.com/avatar/ae2b294e24fd2e472bfca45ab19050c5?d=https%3A%2F%2Fidenticons.github.com%2F9431c87f273e507e6040fcb07dcb4509.png&r=x\",\"gravatar_id\":\"ae2b294e24fd2e472bfca45ab19050c5\",\"url\":\"https://api.github.com/users/yrashk\",\"html_url\":\"https://github.com/yrashk\",\"followers_url\":\"https://api.github.com/users/yrashk/followers\",\"following_url\":\"https://api.github.com/users/yrashk/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/yrashk/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/yrashk/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/yrashk/subscriptions\",\"organizations_url\":\"https://api.github.com/users/yrashk/orgs\",\"repos_url\":\"https://api.github.com/users/yrashk/repos\",\"events_url\":\"https://api.github.com/users/yrashk/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/yrashk/received_events\",\"type\":\"User\",\"site_admin\":false}]"
+    }
+  }
+]

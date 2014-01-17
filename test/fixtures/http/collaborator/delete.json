@@ -1,0 +1,32 @@
+[
+ {
+    "request": {
+      "url": "https://api.github.com/repos/elixir-lang/elixir/collaborators/ortuna",
+      "headers": {
+        "User-Agent": "ExGithub"
+      },
+      "method": "delete",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 204,
+      "headers": {
+        "Server": "GitHub.com",
+        "Date": "Fri, 17 Jan 2014 18:22:48 GMT",
+        "Status": "204 No Content",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "43",
+        "X-RateLimit-Reset": "1389984535",
+        "X-GitHub-Media-Type": "github.beta; format=json",
+        "X-Content-Type-Options": "nosniff",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+        "Access-Control-Allow-Origin": "*",
+        "X-GitHub-Request-Id": "AD4FA0D7:4B98:5B8323A:52D974F8",
+        "Vary": "Accept-Encoding"
+      },
+      "body": ""
+    }
+  }
+]
