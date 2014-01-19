@@ -45,7 +45,7 @@ defmodule ExGithub.Client do
 
   def parse_path(path, options) do
     Enum.reduce(options, path, fn({key, value}, acc) ->
-      acc =  String.replace(acc, ":#{key}", value)
+      String.replace(acc, ":#{key}", value)
     end)
   end
 
