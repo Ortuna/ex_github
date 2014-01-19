@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "url": "https://api.github.com/repos/elixir-lang/elixir/languages",
+      "url": "https://api.github.com/user/emails",
       "headers": {
         "User-Agent": "ExGithub"
       },
@@ -13,26 +13,27 @@
       "status_code": 200,
       "headers": {
         "Server": "GitHub.com",
-        "Date": "Fri, 17 Jan 2014 03:28:50 GMT",
+        "Date": "Sun, 19 Jan 2014 01:38:17 GMT",
         "Content-Type": "application/json; charset=utf-8",
         "Status": "200 OK",
-        "X-RateLimit-Limit": "60",
-        "X-RateLimit-Remaining": "51",
-        "X-RateLimit-Reset": "1389930302",
-        "Cache-Control": "public, max-age=60, s-maxage=60",
-        "Last-Modified": "Fri, 17 Jan 2014 00:26:45 GMT",
-        "ETag": "\"1f3d68dc6403a8c67c25b158262d1633\"",
-        "Vary": "Accept",
+        "X-RateLimit-Limit": "5000",
+        "X-RateLimit-Remaining": "4990",
+        "X-RateLimit-Reset": "1390097300",
+        "Cache-Control": "private, max-age=60, s-maxage=60",
+        "ETag": "\"25c4ba5d9ef41840dc491521de2c8f60\"",
+        "X-OAuth-Scopes": "user, public_repo, repo, gist",
+        "X-Accepted-OAuth-Scopes": "user, user:email",
+        "Vary": "Accept, Authorization, Cookie, X-GitHub-OTP",
         "X-GitHub-Media-Type": "github.beta; format=json",
         "X-Content-Type-Options": "nosniff",
-        "Content-Length": "47",
+        "Content-Length": "45",
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
         "Access-Control-Allow-Origin": "*",
-        "X-GitHub-Request-Id": "AD4FA0D7:4A28:351556C:52D8A371",
+        "X-GitHub-Request-Id": "AD4FA0D7:7D3D:2121B:52DB2C88",
         "Vary": "Accept-Encoding"
       },
-      "body": "{\"Shell\":9749,\"Elixir\":1685996,\"Erlang\":272969}"
+      "body": "[\"some@email.com\",\"ortuna@gmail.com\"]"
     }
   }
 ]

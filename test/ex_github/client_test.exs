@@ -1,98 +1,117 @@
-defmodule ClientMocks do
-  defmodule SimpleGETJSON do
-    def get(_url, _headers) do
-      body = "{\"field\": \"value\", \"field2\": \"value2\"}"
-      HTTPotion.Response.new([status_code: 200, body: body])
-    end
-  end
-
-  defmodule ExplicitParams do
-    def get("https://api.github.com/users/Ortuna", headers) do
-      body = "{\"field\": \"#{Dict.get(headers, "field")}\"}"
-      HTTPotion.Response.new([status_code: 200, body: body])
-    end
-
-    def get("https://api.github.com/auth_token", headers) do
-      body = "{\"auth_token\": \"#{Dict.get(headers, "Authorization")}\"}"
-      HTTPotion.Response.new([status_code: 200, body: body])
-    end
-  end
-  
-  defmodule PatchRequest do
-    def patch("https://api.github.com/user", patch_body, _headers) do
-      {:ok, values} = JSON.decode(patch_body) 
-      body = "{\"field\": \"#{Dict.get(values, "field")}\"}"
-      HTTPotion.Response.new([status_code: 200, body: body])
-    end
-  end
-
-  def default_header do
-    [{"User-Agent", "ExGithub"}]
-  end
-end
-
 defmodule ClientTest do
-  use     ExUnit.Case, async: true
-  alias   ExGithub.Client
-  doctest Client
+  use       ExUnit.Case
+  alias     ExGithub.Client
+
+  defmodule Mock do
+    def get("https://api.github.com/users/some_user", _options) do
+      HTTPotion.Response.new(status_code: 200, body: "expected body")
+    end
+
+    def get("https://api.github.com/repos/some_repo", _options) do
+      json = "{\"field\": \"expected value\"}"
+      HTTPotion.Response.new(status_code: 200, body: json)
+    end
+
+    def request(:delete, "https://api.github.com/users/some_user/repos/some_repo", _, _, _) do
+      HTTPotion.Response.new(status_code: 204)
+    end
+
+    def request(:put, "https://api.github.com/users/some_user/repos/some_repo", _, _, _) do
+      HTTPotion.Response.new(status_code: 204)
+    end
+
+    def request(:patch, "https://api.github.com/users/some_user", body, _, _) do 
+      HTTPotion.Response.new(status_code: 200, body: body)
+    end
+  end
+
+  test "parse a path" do
+    path = Client.parse_path("users/:user", user: "some_user")
+    assert path == "users/some_user"
+
+    path = Client.parse_path("users/:user/repos/:repo", repo: "some_repo", user: "some_user")
+    assert path == "users/some_user/repos/some_repo"
+
+    path = Client.parse_path("users/:user/repos/:repo", user: "some_user")
+    assert path == "users/some_user/repos/:repo"
+  end
+
+  test "parse a url" do
+    url = Client.parse_url("some_url")
+    assert url == "https://api.github.com/some_url"
+  end
+
+  test "adds Authorization to parsed headers" do
+    headers = Client.parse_headers(auth_token: "abc1234")
+    assert headers[:"Authorization"] == "token abc1234"
+  end
+
+  test "has a user-agent in the parsed headers" do
+    headers = Client.parse_headers([])
+    assert headers[:"User-Agent"] == "ExGithub"
+
+    headers = Client.parse_headers("User-Agent": "AnotherAgent")
+    assert headers[:"User-Agent"] == "AnotherAgent"
+  end
+
+  test "extracting body of a HTTPotion.Response" do
+    response = HTTPotion.Response.new(status_code: 200, body: "output")
+    assert Client.extract_body(response) == "output"
+  end 
+
+  test "extracting status code of a HTTPotion.Response" do
+    response = HTTPotion.Response.new(status_code: 200, body: "output")
+    assert Client.extract_status(response) == 200
+  end
+
+  test "extracting json from a HTTPotion.Response" do
+    json     = "{\"field\": \"expected value\"}"
+    response = HTTPotion.Response.new(status_code: 200, body: json)
+    parsed   = Client.extract_json(response)
+    assert parsed["field"] == "expected value"
+  end
+
+  #requests
+  test "GET request" do
+    response = Client.get(Mock, "users/:user", user: "some_user")
+    assert response == "expected body"
+
+    response = Client.get(Mock, "users/some_user")
+    assert response == "expected body"
+  end
+
+  test "GET status request" do
+    status_code = Client.get_status(Mock, "users/:user", user: "some_user")
+    assert status_code == 200
+
+    status_code = Client.get_status(Mock, "users/some_user")
+    assert status_code == 200 
+  end
   
-  def create_response(status_code // 200, body) do 
-    HTTPotion.Response.new([status_code: status_code, body: body])
+  test "GET response request" do
+    request = Client.get_request(Mock, "users/:user", user: "some_user")
+    refute request.body == nil
+    assert request.status_code == 200
   end
 
-  test "can GET JSON from a path" do
-    output = Client.request(ClientMocks.SimpleGETJSON, :get, "users/Ortuna") 
-    assert output["field"]  == "value"
-    assert output["field2"] == "value2"
-  end
-  
-  test "sends the right headers to a request" do
-    headers = [{"field", "passed value"}]
-    output = Client.request(ClientMocks.ExplicitParams, :get, "users/Ortuna", headers: headers) 
-    assert output["field"]  == "passed value"
-  end
-  
-  test "sends the right auth_toke to a request" do
-    output = Client.request(ClientMocks.ExplicitParams, :get, "auth_token", auth_token: "1234abc") 
-    assert output["auth_token"]  == "token 1234abc"
+  test "GET json request" do
+    json = Client.get_json(Mock, "repos/:repo", repo: "some_repo")
+    assert json["field"] == "expected value"
   end
 
-  test "sends a patch request" do
-    values = [field: "passed value"]
-    output = Client.patch(ClientMocks.PatchRequest, "user", values, auth_token: "1234abc") 
-    assert output["field"]  == "passed value"
+  test "DELETE request" do
+    status = Client.delete(Mock, "users/:user/repos/:repo", user: "some_user", repo: "some_repo")
+    assert status == 204
   end
 
-  test "#json_from response can parse JSON from a HTTPotion.Response" do
-    response = create_response("{\"field\": \"value\", \"field2\": \"value2\"}") 
-    output   = Client.json_from_response(response)
-    assert output["field"]  == "value"
-    assert output["field2"] == "value2"
-  end
-  
-  test "#request_headers appends user-agent to headers" do
-    headers  = Client.request_headers
-    assert headers == ClientMocks.default_header
-
-    headers  = Client.request_headers(nil, [{"X-YZ", "some_value"}])
-    expected = ClientMocks.default_header ++ [{"X-YZ", "some_value"}]
-    assert headers == expected
+  test "PUT request" do
+    status = Client.put(Mock, "users/:user/repos/:repo",  user: "some_user", repo: "some_repo")
+    assert status == 204
   end
 
-  test "#request_headers appends auth_token to returned headers" do
-    headers = Client.request_headers("123446asdbc0000")
-    assert Dict.get(headers, "Authorization") == "token 123446asdbc0000"
-
-    headers = Client.request_headers
-    assert headers == ClientMocks.default_header
-  end
-
-  test "#status_from_response can return the status from a request" do
-    response = create_response(404, "") 
-    assert Client.status_from_response(response) == 404
-
-    response = create_response(200, "") 
-    assert Client.status_from_response(response) == 200
+  test "PATCH request" do
+    output = Client.patch(Mock, "users/:user", [field: "my value"], user: "some_user")
+    assert output["field"] == "my value"
   end
 
 end

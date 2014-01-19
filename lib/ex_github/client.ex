@@ -1,102 +1,85 @@
 defmodule ExGithub.Client do
-  @endpoint_url "https://api.github.com"
-  @library      HTTPotion
+  @base_url "https://api.github.com"
+  @http_library HTTPotion
 
-  @doc """
-  returns the full URL depending on path
-
-  ## Examples
-    iex> ExGithub.Client.api_url("users/ortuna")
-    "https://api.github.com/users/ortuna"
-  """
-  def api_url(path) do
-    "#{@endpoint_url}/#{path}"
+  def get(http, path, options // []) do 
+    _get(http, path, options)
+      |> extract_body
   end
 
-  @doc """
-  Takes a Keyword list as the input JSON
-  returns a JSON decoded output from a PATCH request.
-  """
-  def patch(library // @library, path, keyword_list, options // []) do 
-    {:ok, body} = JSON.encode(keyword_list)
-    library.patch(api_url(path), body, headers_from_options(options))
-     |> json_from_response
-  end
-
-  @doc """
-  returns status code from a PUT request.
-  """
-  def put(library // @library, path, options // []) do 
-    _empty_body_status_request(library, :put, path, "", options)
-  end
-
-  @doc """
-  returns status code from a DELETE request.
-  """
-  def delete(library // @library, path, options // []) do 
-    _empty_body_status_request(library, :delete, path, "", options)
-  end
-
-  defp _empty_body_status_request(library, verb, path, body, options) do
-    library.request(verb, api_url(path), body, headers_from_options(options))
-     |> status_from_response
-  end
-
-  @doc """
-  returns a JSON decoded output from a specified URL
-  """
-  def request(library // @library, verb, path, options // []) do 
-    make_request(verb, library, path, options)
-      |> json_from_response
+  def get_json(http, path, options // []) do
+    _get(http, path, options)
+      |> extract_json
   end
   
-  @doc """
-  returns the status code returned by the HTTP call
-  """
-  def request_status(library // @library, verb, path, options // []) do
-    make_request(verb, library, path, options)
-     |> status_from_response
+  def get_request(http, path, options// []) do
+    _get(http, path, options)
   end
 
-  @doc """
-  returns decoded JSON from a HTTPotion.Response
-  """
-  def json_from_response(@library.Response[body: body]) do
+  def get_status(http, path, options // []) do
+    _get(http, path, options)
+      |> extract_status
+  end
+
+  def delete(http, path, options // []) do
+    _request(:delete, http, path, options)
+      |> extract_status
+  end
+
+  def put(http, path, options // []) do
+    _request(:put, http, path, options)
+      |> extract_status
+  end
+
+  def patch(http, path, values, options // []) do
+    {:ok, json} = JSON.encode(values)
+    _request(:patch, http, path, json, options) 
+      |> extract_json
+  end
+
+  def parse_headers(options) do
+    default_headers 
+      |> Keyword.merge(create_headers(options) || [])
+      |> Keyword.merge(options)
+  end
+
+  def parse_path(path, options) do
+    Enum.reduce(options, path, fn({key, value}, acc) ->
+      acc =  String.replace(acc, ":#{key}", value)
+    end)
+  end
+
+  def parse_url(path) do
+    "#{@base_url}/#{path}"
+  end
+
+  def extract_body(@http_library.Response[body: body]), do: body
+  def extract_status(@http_library.Response[status_code: status_code]), do: status_code
+  def extract_json(@http_library.Response[body: body]) do
     {:ok, hash} = JSON.decode(body)
     hash
   end
 
-  @doc """
-  returns the status code from a HTTPotion.Response
-  """
-  def status_from_response(@library.Response[status_code: code]), do: code
-
-  def request_headers(auth_token // nil, headers // nil) do
-    [{"User-Agent", "ExGithub"}] 
-     ++ (auth_token_header(auth_token) || [])
-     ++ (headers || [])
-  end
-
-  @doc """
-  returns the default HTTP library used
-  """
-  def http_library do
-    @library
-  end
+  def http_library, do: @http_library
 
   #PRIVATE
-  defp auth_token_header(nil), do: []
-  defp auth_token_header(auth_token) do
-    [{"Authorization", "token #{auth_token}"}]
+  defp _request(verb, http, path, body // "", options) do
+    url = parse_path(path, options)
+           |> parse_url
+    http.request(verb, url, body, parse_headers(options), [])
   end
 
-  defp make_request(verb, library, path, options) do
-    apply(library, verb, [api_url(path), headers_from_options(options)])
+  defp _get(http, path, options) do
+    parse_path(path, options)
+      |> parse_url
+      |> http.get(parse_headers(options))
   end
 
-  defp headers_from_options(options) do
-    headers = Keyword.get(options, :headers)
-    token   = Keyword.get(options, :auth_token)
-    request_headers(token, headers)
+  defp create_headers(options) do
+    (options[:auth_token]  && ["Authorization": "token #{options[:auth_token]}"])
+  end
+
+  defp default_headers do
+    ["User-Agent": "ExGithub"]
   end
 end

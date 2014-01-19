@@ -1,42 +1,12 @@
 [
   {
     "request": {
-      "url": "https://api.github.com/repos/elixir-lang/elixir/collaborators/ortuna",
+      "url": "https://api.github.com/user/following/vim-scripts",
       "headers": {
+        "user": "vim-scripts",
         "User-Agent": "ExGithub"
       },
-      "method": "get",
-      "body": "",
-      "options": []
-    },
-    "response": {
-      "status_code": 404,
-      "headers": {
-        "Server": "GitHub.com",
-        "Date": "Fri, 17 Jan 2014 18:22:47 GMT",
-        "Content-Type": "application/json; charset=utf-8",
-        "Status": "404 Not Found",
-        "X-RateLimit-Limit": "60",
-        "X-RateLimit-Remaining": "44",
-        "X-RateLimit-Reset": "1389984535",
-        "X-GitHub-Media-Type": "github.beta; format=json",
-        "X-Content-Type-Options": "nosniff",
-        "Content-Length": "76",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
-        "Access-Control-Allow-Origin": "*",
-        "X-GitHub-Request-Id": "AD4FA0D7:4B97:6AD0DC8:52D974F7"
-      },
-      "body": "{\"message\":\"Not Found\",\"documentation_url\":\"http://developer.github.com/v3\"}"
-    }
-  },
-  {
-    "request": {
-      "url": "https://api.github.com/repos/elixir-lang/elixir/collaborators/josevalim",
-      "headers": {
-        "User-Agent": "ExGithub"
-      },
-      "method": "get",
+      "method": "put",
       "body": "",
       "options": []
     },
@@ -44,17 +14,52 @@
       "status_code": 204,
       "headers": {
         "Server": "GitHub.com",
-        "Date": "Fri, 17 Jan 2014 18:22:48 GMT",
+        "Date": "Sun, 19 Jan 2014 02:06:18 GMT",
         "Status": "204 No Content",
-        "X-RateLimit-Limit": "60",
-        "X-RateLimit-Remaining": "43",
-        "X-RateLimit-Reset": "1389984535",
+        "X-RateLimit-Limit": "5000",
+        "X-RateLimit-Remaining": "4989",
+        "X-RateLimit-Reset": "1390097300",
+        "X-OAuth-Scopes": "user, public_repo, repo, gist",
+        "X-Accepted-OAuth-Scopes": "user, user:follow",
         "X-GitHub-Media-Type": "github.beta; format=json",
         "X-Content-Type-Options": "nosniff",
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
         "Access-Control-Allow-Origin": "*",
-        "X-GitHub-Request-Id": "AD4FA0D7:4B98:5B8323A:52D974F8",
+        "X-GitHub-Request-Id": "AD4FA0D7:7D28:7E871E:52DB331A",
+        "Vary": "Accept-Encoding"
+      },
+      "body": ""
+    }
+  },
+  {
+    "request": {
+      "url": "https://api.github.com/user/following/vim-scripts",
+      "headers": {
+        "user": "vim-scripts",
+        "User-Agent": "ExGithub"
+      },
+      "method": "delete",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 204,
+      "headers": {
+        "Server": "GitHub.com",
+        "Date": "Sun, 19 Jan 2014 02:06:19 GMT",
+        "Status": "204 No Content",
+        "X-RateLimit-Limit": "5000",
+        "X-RateLimit-Remaining": "4988",
+        "X-RateLimit-Reset": "1390097300",
+        "X-OAuth-Scopes": "user, public_repo, repo, gist",
+        "X-Accepted-OAuth-Scopes": "user, user:follow",
+        "X-GitHub-Media-Type": "github.beta; format=json",
+        "X-Content-Type-Options": "nosniff",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+        "Access-Control-Allow-Origin": "*",
+        "X-GitHub-Request-Id": "AD4FA0D7:7D2A:6E074F:52DB331B",
         "Vary": "Accept-Encoding"
       },
       "body": ""
