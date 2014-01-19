@@ -31,11 +31,25 @@ defmodule ExGithub.Client do
       |> extract_status
   end
 
+  def put_values(http, path, values, options // []) do
+    {:ok, json} = JSON.encode(values)
+    _request(:put, http, path, json, options)
+      |> extract_json
+  end
+
+
   def patch(http, path, values, options // []) do
     {:ok, json} = JSON.encode(values)
     _request(:patch, http, path, json, options) 
       |> extract_json
   end
+
+  def post(http, path, values, options // []) do
+    {:ok, json} = JSON.encode(values)
+    _request(:post, http, path, json, options) 
+      |> extract_json
+  end
+
 
   def parse_headers(options) do
     default_headers 

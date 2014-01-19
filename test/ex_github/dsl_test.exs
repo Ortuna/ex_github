@@ -12,10 +12,16 @@ defmodule DSLTest do
     end
     def delete(HTTPotion, "users/:user", _options), do: 204
     def put(HTTPotion, "users/:user", _options), do: 204
-    def patch(HTTPotion, "users/:user", values, _options) do
+    def put_values(HTTPotion, "users/:user", values, _options) do
       HashDict.new([{"field", values[:field]}])
     end
 
+    def patch(HTTPotion, "users/:user", values, _options) do
+      HashDict.new([{"field", values[:field]}])
+    end
+    def post(HTTPotion, "user/repos", values, _options) do
+      HashDict.new([{"field", values[:field]}])
+    end
 
     def http_library, do: HTTPotion
   end 
@@ -32,9 +38,9 @@ defmodule DSLTest do
 
     del(:delete, "users/:user")
     put(:add, "users/:user")
+    put_values(:add_values, "users/:user")
     patch(:update, "users/:user")
-
-  
+    post(:create, "user/repos")
   end
 
   test "get requests" do
@@ -67,8 +73,19 @@ defmodule DSLTest do
     assert status == 204
   end
 
+  test "put_values requests" do
+    output = TestEntity.add_values([field: "value"], user: "new_user") 
+    assert output["field"] == "value"
+  end
+
+
   test "patch requests" do
     entity = TestEntity.update([field: "value"], user: "new_user") 
+    assert entity["field"] == "value"
+  end
+
+  test "post requests" do
+    entity = TestEntity.create([field: "value"]) 
     assert entity["field"] == "value"
   end
 

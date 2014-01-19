@@ -20,7 +20,15 @@ defmodule ClientTest do
       HTTPotion.Response.new(status_code: 204)
     end
 
+    def request(:put, "https://api.github.com/users/some_user", body, _, _) do
+      HTTPotion.Response.new(status_code: 204, body: body)
+    end
+
     def request(:patch, "https://api.github.com/users/some_user", body, _, _) do 
+      HTTPotion.Response.new(status_code: 200, body: body)
+    end
+
+    def request(:post, "https://api.github.com/user/repos", body, _, _) do
       HTTPotion.Response.new(status_code: 200, body: body)
     end
   end
@@ -109,8 +117,18 @@ defmodule ClientTest do
     assert status == 204
   end
 
+  test "PUT w/ values request" do
+    output = Client.put_values(Mock, "users/:user", [field: "value"], user: "some_user")
+    assert output["field"] == "value"
+  end
+
   test "PATCH request" do
     output = Client.patch(Mock, "users/:user", [field: "my value"], user: "some_user")
+    assert output["field"] == "my value"
+  end
+
+  test "POST request" do 
+    output = Client.post(Mock, "user/repos", [field: "my value"])
     assert output["field"] == "my value"
   end
 

@@ -5,7 +5,15 @@ defmodule ExGithub.DSL do
         @client unquote(opts)[:client]
       end
 
-      import ExGithub.DSL, only: [get: 2, get_status: 2, get_json: 2, get_request: 3, del: 2, put: 2, patch: 2]
+      import ExGithub.DSL, only: [ get: 2, 
+                                   get_status: 2, 
+                                   get_json: 2, 
+                                   get_request: 3, 
+                                   del: 2, 
+                                   put: 2, 
+                                   put_values: 2, 
+                                   patch: 2, 
+                                   post: 2 ]
     end 
   end
   
@@ -59,10 +67,27 @@ defmodule ExGithub.DSL do
     end
   end
 
+  defmacro put_values(fun_name, path) do
+    quote do 
+      def unquote(fun_name)(values, options // []) do
+        @client.put_values(@client.http_library, unquote(path), values, options)
+      end
+    end
+  end
+
+ 
   defmacro patch(fun_name, path) do
     quote do 
       def unquote(fun_name)(values, options // []) do
         @client.patch(@client.http_library, unquote(path), values, options)
+      end
+    end
+  end
+
+  defmacro post(fun_name, path) do
+    quote do 
+      def unquote(fun_name)(values, options // []) do
+        @client.post(@client.http_library, unquote(path), values, options)
       end
     end
   end
