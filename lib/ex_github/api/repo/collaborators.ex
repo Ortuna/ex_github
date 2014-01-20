@@ -6,7 +6,7 @@ defmodule ExGithub.Repo.Collaborator do
     response.status_code == 204
   end)
 
-  put(:add, "repos/:owner/:repo/collaborators/:user")
+  put([:add, :create], "repos/:owner/:repo/collaborators/:user")
   del(:remove, "repos/:owner/:repo/collaborators/:user")
 
 end

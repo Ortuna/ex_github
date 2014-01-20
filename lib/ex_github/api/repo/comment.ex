@@ -6,6 +6,6 @@ defmodule ExGithub.Repo.Comment do
   get_json(:fetch_by_id, "repos/:owner/:repo/comments/:id")
   patch(:update, "repos/:owner/:repo/comments/:id")
   del(:remove, "repos/:owner/:repo/comments/:id")
-  post(:add, "repos/:owner/:repo/commits/:sha/comments")
+  post([:add, :create], "repos/:owner/:repo/commits/:sha/comments")
 
 end

@@ -17,79 +17,115 @@ defmodule ExGithub.DSL do
     end 
   end
   
-  defmacro get(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(options // []) do
-        @client.get(@client.http_library, unquote(path), options)
+  defmacro get(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(options // []) do
+          @client.get(@client.http_library, unquote(path), options)
+        end
       end
-    end
+    end)
   end
 
-  defmacro get_status(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(options // []) do
-        @client.get_status(@client.http_library, unquote(path), options)
+  defmacro get_status(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(options // []) do
+          @client.get_status(@client.http_library, unquote(path), options)
+        end
       end
-    end
+    end)
   end
 
-  defmacro get_request(fun_name, path, fun) do
-    quote do 
-      def unquote(fun_name)(options // []) do
-        response = @client.get_request(@client.http_library, unquote(path), options)
-        unquote(fun).(response)
+  defmacro get_request(funs, path, fun) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(options // []) do
+          response = @client.get_request(@client.http_library, unquote(path), options)
+          unquote(fun).(response)
+        end
       end
-    end
+    end)
   end
 
 
-  defmacro get_json(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(options // []) do
-        @client.get_json(@client.http_library, unquote(path), options)
+  defmacro get_json(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(options // []) do
+          @client.get_json(@client.http_library, unquote(path), options)
+        end
       end
-    end
+    end)
   end
 
-  defmacro del(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(options // []) do
-        @client.delete(@client.http_library, unquote(path), options)
+  defmacro del(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(options // []) do
+          @client.delete(@client.http_library, unquote(path), options)
+        end
       end
-    end
+    end)
   end
 
-  defmacro put(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(options // []) do
-        @client.put(@client.http_library, unquote(path), options)
+  defmacro put(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(options // []) do
+          @client.put(@client.http_library, unquote(path), options)
+        end
       end
-    end
+    end)
   end
 
-  defmacro put_values(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(values, options // []) do
-        @client.put_values(@client.http_library, unquote(path), values, options)
+  defmacro put_values(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(values, options // []) do
+          @client.put_values(@client.http_library, unquote(path), values, options)
+        end
       end
-    end
+    end)
   end
 
  
-  defmacro patch(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(values, options // []) do
-        @client.patch(@client.http_library, unquote(path), values, options)
+  defmacro patch(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(values, options // []) do
+          @client.patch(@client.http_library, unquote(path), values, options)
+        end
       end
-    end
+    end)
   end
 
-  defmacro post(fun_name, path) do
-    quote do 
-      def unquote(fun_name)(values, options // []) do
-        @client.post(@client.http_library, unquote(path), values, options)
+  defmacro post(funs, path) do
+    unless is_list(funs), do: funs = [funs] 
+    
+    Enum.map(funs, fn(fun_name) ->
+      quote do 
+        def unquote(fun_name)(values, options // []) do
+          @client.post(@client.http_library, unquote(path), values, options)
+        end
       end
-    end
+    end)
   end
 
 end

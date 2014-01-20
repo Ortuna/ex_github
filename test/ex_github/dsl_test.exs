@@ -41,6 +41,8 @@ defmodule DSLTest do
     put_values(:add_values, "users/:user")
     patch(:update, "users/:user")
     post(:create, "user/repos")
+
+    get_json([:multiple1, :multiple2], "users/:user")
   end
 
   test "get requests" do
@@ -89,4 +91,11 @@ defmodule DSLTest do
     assert entity["field"] == "value"
   end
 
+  test "define multi-method macro" do
+    entity = TestEntity.multiple1(user: "some_user")
+    assert entity["field"] == "value"
+
+    entity = TestEntity.multiple2(user: "some_user")
+    assert entity["field"] == "value"
+  end
 end
