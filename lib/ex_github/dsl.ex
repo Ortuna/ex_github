@@ -1,10 +1,7 @@
 defmodule ExGithub.DSL do
   defmacro __using__(opts) do
     quote do
-      if unquote(opts)[:client] do
-        @client unquote(opts)[:client]
-      end
-
+      def client, do: unquote(opts)[:client]
       import ExGithub.DSL, only: [ get: 2, 
                                    get_status: 2, 
                                    get_json: 2, 
@@ -23,7 +20,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(options // []) do
-          @client.get(@client.http_library, unquote(path), options)
+          client.get(client.http_library, unquote(path), options)
         end
       end
     end)
@@ -35,7 +32,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(options // []) do
-          @client.get_status(@client.http_library, unquote(path), options)
+          client.get_status(client.http_library, unquote(path), options)
         end
       end
     end)
@@ -47,7 +44,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(options // []) do
-          response = @client.get_request(@client.http_library, unquote(path), options)
+          response = client.get_request(client.http_library, unquote(path), options)
           unquote(fun).(response)
         end
       end
@@ -61,7 +58,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(options // []) do
-          @client.get_json(@client.http_library, unquote(path), options)
+          client.get_json(client.http_library, unquote(path), options)
         end
       end
     end)
@@ -73,7 +70,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(options // []) do
-          @client.delete(@client.http_library, unquote(path), options)
+          client.delete(client.http_library, unquote(path), options)
         end
       end
     end)
@@ -85,7 +82,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(options // []) do
-          @client.put(@client.http_library, unquote(path), options)
+          client.put(client.http_library, unquote(path), options)
         end
       end
     end)
@@ -97,7 +94,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(values, options // []) do
-          @client.put_values(@client.http_library, unquote(path), values, options)
+          client.put_values(client.http_library, unquote(path), values, options)
         end
       end
     end)
@@ -110,7 +107,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(values, options // []) do
-          @client.patch(@client.http_library, unquote(path), values, options)
+          client.patch(client.http_library, unquote(path), values, options)
         end
       end
     end)
@@ -122,7 +119,7 @@ defmodule ExGithub.DSL do
     Enum.map(funs, fn(fun_name) ->
       quote do 
         def unquote(fun_name)(values, options // []) do
-          @client.post(@client.http_library, unquote(path), values, options)
+          client.post(client.http_library, unquote(path), values, options)
         end
       end
     end)
