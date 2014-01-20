@@ -54,6 +54,11 @@ defmodule ClientTest do
     assert headers[:"Authorization"] == "token abc1234"
   end
 
+  test "does not add auth_token to the headers" do
+    headers = Client.parse_headers(auth_token: "abc1234")
+    assert headers[:auth_token] == nil
+  end
+
   test "has a user-agent in the parsed headers" do
     headers = Client.parse_headers([])
     assert headers[:"User-Agent"] == "ExGithub"

@@ -55,6 +55,7 @@ defmodule ExGithub.Client do
     default_headers 
       |> Keyword.merge(create_headers(options) || [])
       |> Keyword.merge(options)
+      |> Keyword.delete(:auth_token)
   end
 
   def parse_path(path, options) do
