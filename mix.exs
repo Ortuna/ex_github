@@ -3,8 +3,8 @@ defmodule ExGithub.Mixfile do
 
   def project do
     [ app: :ex_github,
-      version: "0.0.1",
-      elixir: "~> 0.12.0",
+      version: "0.1.0",
+      elixir: "~> 0.12.2",
       deps: deps(Mix.env) ]
   end
 
