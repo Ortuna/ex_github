@@ -16,7 +16,7 @@ defmodule ExGithub.Mixfile do
 
   defp deps(:test) do
     deps(:dev) ++ 
-    [ {:exvcr, github: "parroty/exvcr"} ]
+    [ {:exvcr, github: "parroty/exvcr", branch: "master"} ]
   end
 
   defp deps(:prod) do
