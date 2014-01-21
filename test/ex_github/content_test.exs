@@ -1,5 +1,5 @@
 defmodule ContentTest do
-  use   ExUnit.Case
+  use   ExUnit.Case, async: false
   use   ExVCR.Mock
   alias ExGithub.Repo.Content
 
