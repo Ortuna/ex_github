@@ -1,1 +1,41 @@
-[]
+[
+  {
+    "request": {
+      "url": "https://api.github.com/repos/Ortuna/progit-bana/contents/manifest.json",
+      "headers": {
+        "owner": "Ortuna",
+        "repo": "progit-bana",
+        "path": "manifest.json",
+        "User-Agent": "ExGithub"
+      },
+      "method": "get",
+      "body": "",
+      "options": []
+    },
+    "response": {
+      "status_code": 200,
+      "headers": {
+        "Server": "GitHub.com",
+        "Date": "Tue, 21 Jan 2014 18:33:09 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Status": "200 OK",
+        "X-RateLimit-Limit": "60",
+        "X-RateLimit-Remaining": "19",
+        "X-RateLimit-Reset": "1390331694",
+        "Cache-Control": "public, max-age=60, s-maxage=60",
+        "Last-Modified": "Sun, 19 Jan 2014 21:42:27 GMT",
+        "ETag": "\"65b6e6b91fd8e566a76c112759ef8770\"",
+        "Vary": "Accept",
+        "X-GitHub-Media-Type": "github.beta; format=json",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Length": "922",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+        "Access-Control-Allow-Origin": "*",
+        "X-GitHub-Request-Id": "AD4FA0D7:60ED:88CBA1:52DEBD65",
+        "Vary": "Accept-Encoding"
+      },
+      "body": "{\"name\":\"manifest.json\",\"path\":\"manifest.json\",\"sha\":\"d82148263ff7431bbf671ef4917c295238014682\",\"size\":150,\"url\":\"https://api.github.com/repos/Ortuna/progit-bana/contents/manifest.json?ref=master\",\"html_url\":\"https://github.com/Ortuna/progit-bana/blob/master/manifest.json\",\"git_url\":\"https://api.github.com/repos/Ortuna/progit-bana/git/blobs/d82148263ff7431bbf671ef4917c295238014682\",\"type\":\"file\",\"content\":\"ewogICAgInRpdGxlIjogIlBybyBHaXQiLAogICAgImNvdmVyX2ltYWdlIjog\\nImFzc2V0cy9jb3Zlci5qcGciLAogICAgInBhZ2VzIjoKICAgIHsKICAgICAg\\nICAiUHJlZmFjZSI6ICIwMS1pbnRyb2R1Y3Rpb24vMDEtY2hhcHRlcjEubWFy\\na2Rvd24iCiAgICB9Cn0K\\n\",\"encoding\":\"base64\",\"_links\":{\"self\":\"https://api.github.com/repos/Ortuna/progit-bana/contents/manifest.json?ref=master\",\"git\":\"https://api.github.com/repos/Ortuna/progit-bana/git/blobs/d82148263ff7431bbf671ef4917c295238014682\",\"html\":\"https://github.com/Ortuna/progit-bana/blob/master/manifest.json\"}}"
+    }
+  }
+]
